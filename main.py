@@ -123,7 +123,7 @@ with open(file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
 
     # Write the headings to the CSV file
-    writer.writerow(['Text', 'Link', 'Summarized Data', 'Sentiment'])
+    writer.writerow(['Text', 'Link', 'Summarized_Data', 'Sentiment'])
 
     # Iterate over the data and write each row to the CSV file
     for text, link, data, sen in zip(article_texts, article_links, article_data, sentiment):

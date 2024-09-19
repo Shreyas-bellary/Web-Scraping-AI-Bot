@@ -104,8 +104,8 @@ function generateNewsArticles() {
 
         // Create a link for the heading
         const headingLink = document.createElement("a");
-        headingLink.href = row.Link; // Assuming the link is in a column named "link"
-        headingLink.textContent = row.Text; // Assuming the heading is in a column named "heading"
+        headingLink.href = row.Link; 
+        headingLink.textContent = row.Text; 
         articleTitle.appendChild(headingLink);
 
         const articleContent = document.createElement("p");
