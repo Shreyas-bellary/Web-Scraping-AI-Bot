@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Website</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="script.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="images/logo.png" alt="Logo" class="logo">
+      <h1>GLOBAL</h1>
+    </div>
+  </header>
+  
+  
+  <main>
+    <section id="hero">
+      <div class="hero-content">
+        <h2>Welcome to our News Website</h2>
+        <p>Stay updated with the latest news</p>
+      </div>
+      <div class="hero-gif"></div>
+    </section>
+
+    <section id="news">
+      <!-- News articles dynamically generated here -->
+    
+      <!-- Add more article boxes as needed -->
+    </section>
+
+    <section id="comments">
+      <h2 class="section-title">Comments</h2>
+      <form id="comment-form">
+        <input type="text" id="author-input" placeholder="Your Name" required>
+        <textarea id="message-input" placeholder="Leave a comment" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="comment-section" class="fade-in">
+        <!-- Comments section dynamically generated here -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 News Website. All rights reserved.</p>
+  </footer>
+</body>
+</html>

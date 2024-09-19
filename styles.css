@@ -1,0 +1,283 @@
+/* styles.css */
+
+/* Override the default link styling for all other links */
+a:-webkit-any-link {
+  color: inherit; /* Use the inherit keyword to retain the parent color */
+  cursor: pointer; /* Set the cursor to auto (default) */
+  text-decoration: none; /* Remove underline */
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+  background-color: #000;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+header {
+  background-color: #222;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  transition: all 0.3s ease;
+}
+
+.logo-container {
+  
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+}
+
+h1 {
+  font-size: 38px;
+  margin: 0;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.news-heading {
+  font-size: 32px;
+  margin: 0;
+  margin-left: 10px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start; /* Align content towards the left */
+  }
+
+  .logo-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1, .news-heading {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-left: 0;
+    text-align: center; /* Center content horizontally on smaller screens */
+  }
+
+  .box {
+    width: calc(100% - 40px);
+    margin-right: 20px;
+  }
+}
+
+main {
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 24px;
+  text-align: center;
+}
+
+
+#hero {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-content h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: #fff;
+}
+
+.hero-gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50px;
+  bottom: 0;
+  background: url('images/LCPT.gif') center center/cover no-repeat;
+  z-index: 0;
+}
+
+#news {
+  margin-top: 40px;
+}
+
+.box {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #000;
+  color: #888;
+  padding: 10px;
+  margin: 0px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.box:hover {
+  background-color: #000;
+  color: #fff;
+  transform: translateY(-5px);
+}
+.article-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #888;
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s ease;
+}
+
+.article-title:hover {  
+  color: #eae8e8; 
+}
+
+.box:hover .article-title {
+  color: #e1e0e0;
+}
+
+.hover-3 {
+  --b: 0.1em;   /* the thickness of the line */
+  --c: #00bfff; /* the color */
+
+  color: #888;
+  padding-block: var(--b);
+  background: 
+    linear-gradient(var(--c) 50%,#000 0) 0% calc(100% - var(--_p,0%))/100% 200%,
+    linear-gradient(var(--c) 0 0) 0% var(--_p,0%)/var(--_p,0%) var(--b) no-repeat;
+  -webkit-background-clip: text,padding-box;
+  background-clip: text,padding-box;
+  transition: .3s var(--_s,0s) linear,background-size .3s calc(.3s - var(--_s,0s));
+}
+
+.hover-3:hover {
+  --_p: 100%;
+  --_s: .3s;
+}
+
+.article-content {
+  font-size: 16px;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.box:hover .article-content {
+  color: #fff;
+}
+
+.sentiment {
+  font-size: 14px;
+  color: #888;
+  margin-top: 10px;
+  transition: color 0.3s ease;
+}
+
+.box:hover .sentiment {
+  color: #fff;
+}
+
+
+/* Add animations */
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation 1s ease-in forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+#comments {
+  margin-top: 40px;
+  background-color: #222;
+  padding: 20px;
+}
+
+#comment-form input,
+#comment-form textarea,
+#comment-form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+#comment-form textarea {
+  height: 100px;
+}
+
+#comment-section {
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.comment {
+  background-color: #333;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment .author {
+  font-weight: bold;
+}
+
+.comment .timestamp {
+  font-size: 12px;
+  color: #999;
+}
+
+footer {
+  background-color: #222;
+  padding: 10px;
+  text-align: center;
+}
+
+.fade-in {
+  opacity: 1 !important;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation 1s ease-in forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
