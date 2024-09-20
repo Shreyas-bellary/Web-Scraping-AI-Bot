@@ -1,24 +1,48 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import torch
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 from nltk.sentiment import SentimentIntensityAnalyzer
 import csv
 import os
+import nltk
+import re
+import datetime
+#nltk.download('vader_lexicon')
+
+def append_to_csv(data, file_path):
+    # Check if the file already exists
+    file_exists = os.path.isfile(file_path)
+
+    with open(file_path, mode='a', newline='') as file:
+        writer = csv.writer(file)
+
+        if not file_exists:
+            writer.writerow(['Date', 'Text', 'Link', 'Summarized_Data', 'Sentiment'])
+
+        for row in data:
+            writer.writerow(row)
 
 
 def get_html(url):
-
     # Use Selenium to render JavaScript content
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    options = Options()
+    options.add_argument('--headless')  # Run Chrome in headless mode
+
+    # Create a Service object with ChromeDriver path
+    service = Service(ChromeDriverManager().install())
+
+    # Initialize the WebDriver with Service and Options
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(url)
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(5)  # Implicit wait for page to load
     html = driver.execute_script('return document.documentElement.outerHTML')
     driver.quit()
     return(html)
+
 
 
 def summarize_text(text, max_length=1024):
@@ -61,23 +85,40 @@ def get_article_text(url):
     soup = BeautifulSoup(response , 'html.parser') 
     article_texts = []
     article_links = []
+    check_links = []
+    # Extract the dynamic class name out of the website
+    head = soup.head
+    if head: 
+        head.extract()     # Remove the head contents from the extracted html response  
+    str_s = soup
+    str_soup = str(str_s) 
+    pattern = r'"[^\s]*\/news\/articles\/[^\s]*"'
+    match = re.search(pattern,str_soup).group(0).strip('"')
+    class_name = soup.find('a', href=match)['class']
+    class_name = ' '.join(class_name)
     count = 0
+
     # Find all the article elements on the page
-    articles = soup.find_all('div', class_='gs-c-promo-body gel-1/2@xs gel-1/1@m gs-u-mt@m')
+    articles = soup.find_all('a', class_= class_name)
+    #print(articles)
     for article in articles:
-        text_elements = article.find_all(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
-        article_text = ' '.join([element.text.strip() for element in text_elements])
-        article_texts.append(article_text)
-        article_link = article.find('a', class_='gs-c-promo-heading')['href']
-        if "https://www.bbc." in article_link : 
-            article_links.append(article_link)
-        else:
-            url_part_1 = 'https://www.bbc.com'
-            article_link = url_part_1 + article_link
-            article_links.append(article_link)
-        count=count+1    
-        if(count==3):    
-            break   
+        flag = article.get('href')      # Flag to address non-articles in the soup
+        if flag and '/news/' in flag and flag not in check_links:
+            text_elements = article.find_all(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+            article_text = ' '.join([element.text.strip() for element in text_elements])
+            article_texts.append(article_text)
+            check_links.append(flag)
+            article_link = flag
+
+            if "https://www.bbc." in article_link : 
+                article_links.append(article_link)
+            else:
+                url_part_1 = 'https://www.bbc.com'
+                article_link = url_part_1 + article_link
+                article_links.append(article_link)
+            count=count+1    
+        if(count==10):    
+            break    
     
     # Visit each link and scrape the article data
     article_data = []
@@ -108,7 +149,7 @@ def get_article_text(url):
 
 
 
-# Test the function with the BBC News website
+
 url = 'https://www.bbc.com/news'
 article_texts, article_links,article_data,sentiment = get_article_text(url)
 
@@ -118,7 +159,9 @@ script_directory = os.path.dirname(os.path.abspath(__file__))
 # Define the file path
 file_path = os.path.join(script_directory, 'output.csv')
 
-# Open the CSV file in write mode
+# Define the file path for the appended CSV
+append_file_path = os.path.join(script_directory, 'database.csv')
+
 with open(file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
 
@@ -129,6 +172,9 @@ with open(file_path, mode='w', newline='') as file:
     for text, link, data, sen in zip(article_texts, article_links, article_data, sentiment):
         writer.writerow([text, link, data, sen])
 
+current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+data_to_append = [(current_date, text, link, data, sen) for text, link, data, sen in zip(article_texts, article_links, article_data, sentiment)]
+append_to_csv(data_to_append, append_file_path)
 
 
 """
