@@ -1,9 +1,8 @@
 name: Run main.py 
 
 on:
-  push:  # Trigger on every commit
-    branches:
-      - Shreyas-bellary-patch-1  
+  schedule:
+    - cron: '0 0 * * *' # runs every day 
 
 jobs:
   build:
