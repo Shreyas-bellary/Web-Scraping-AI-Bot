@@ -1,6 +1,7 @@
-torch==2.0.1
-selenium==4.21.0
-webdriver_manager==3.8.6
-beautifulsoup4==4.12.2
-transformers==4.32.1
-nltk==3.8.1
+torch==2.4.1
+selenium==4.24.0
+webdriver_manager==4.0.2
+beautifulsoup4==4.12.3
+transformers==4.44.2
+nltk==3.9.1
+sentencepiece==0.2.0
