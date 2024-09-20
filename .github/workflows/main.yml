@@ -1,9 +1,9 @@
-name: Run main.py 
+name: Run main.py and Deploy to GitHub Pages
 
 on:
- push:  # Trigger on every commit
+  push:  
     branches:
-      - Shreyas-bellary-patch-1
+      - Shreyas-bellary-patch-1  
 
 jobs:
   build:
@@ -14,7 +14,7 @@ jobs:
     
     steps:
       - name: Checkout repo content
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -37,7 +37,14 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Updated CSV" --allow-empty
 
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+        uses: ad-m/github-push-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch : Shreyas-bellary-patch-1
+          branch: Shreyas-bellary-patch-1
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  
+          publish_branch: gh-pages
