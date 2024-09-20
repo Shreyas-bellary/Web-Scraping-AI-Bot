@@ -1,9 +1,8 @@
 name: Run main.py 
 
-on: 
-  push:  
-    branches:
-      - Shreyas-bellary-patch-1 
+on:
+  schedule:
+    - cron: '0 0 * * *' # runs daily at midnight UTC
 
 jobs:
   build:
@@ -40,4 +39,4 @@ jobs:
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch : Shreyas-bellary-patch-1
+          branch : main
