@@ -1,6 +1,6 @@
-name: Run main.py
+name: Run main.py 
 
-on:
+on: #commit
   push:  
     branches:
       - Shreyas-bellary-patch-1 
