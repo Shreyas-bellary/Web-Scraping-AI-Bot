@@ -37,7 +37,7 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Updated CSV" --allow-empty
 
       - name: Push changes
-        uses: ad-m/github-push-action@v1
+        uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: Shreyas-bellary-patch-1
