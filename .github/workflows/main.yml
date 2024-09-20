@@ -1,9 +1,9 @@
 name: Run main.py
 
 on:
-  push:  # Trigger on every commit
+  push:  
     branches:
-      - Shreyas-bellary-patch-1 # Change to your default branch if it's different
+      - Shreyas-bellary-patch-1 
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12' # install the latest Python version
+          python-version: '3.12' 
 
       - name: Install Python packages
         run: |
