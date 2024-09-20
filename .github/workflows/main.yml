@@ -1,8 +1,9 @@
 name: Run main.py 
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # runs daily at midnight UTC
+ push:  # Trigger on every commit
+    branches:
+      - Shreyas-bellary-patch-1
 
 jobs:
   build:
@@ -13,10 +14,10 @@ jobs:
     
     steps:
       - name: Checkout repo content
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.12' 
 
@@ -36,7 +37,7 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Updated CSV" --allow-empty
 
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+        uses: ad-m/github-push-action@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch : main
+          branch : Shreyas-bellary-patch-1
