@@ -11,7 +11,7 @@ import os
 import nltk
 import re
 import datetime
-#nltk.download('vader_lexicon')
+nltk.download('vader_lexicon')
 
 def append_to_csv(data, file_path):
     # Check if the file already exists
