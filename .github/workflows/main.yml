@@ -20,8 +20,7 @@ jobs:
       - name: Install Python packages
         run: |
           python -m pip install --upgrade pip
-          pip install torch==2.0.1 selenium==4.21.0 webdriver_manager==3.8.6 beautifulsoup4==4.12.2 transformers==4.32.1 nltk==3.8.1
-
+          pip install -r requirements.txt
       - name: Execute main.py
         run: python main.py
 
