@@ -3,7 +3,7 @@ name: Run main.py
 on: 
   push:  
     branches:
-      -Shreyas-bellary-patch-1 
+      - Shreyas-bellary-patch-1 
 
 jobs:
   build:
@@ -40,5 +40,4 @@ jobs:
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branches: 
-            -Shreyas-bellary-patch-1
+          branches: Shreyas-bellary-patch-1
