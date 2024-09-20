@@ -117,7 +117,7 @@ def get_article_text(url):
                 article_link = url_part_1 + article_link
                 article_links.append(article_link)
             count=count+1    
-        if(count==10):    
+        if(count==1):    
             break    
     
     # Visit each link and scrape the article data
