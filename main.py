@@ -1,4 +1,5 @@
 from selenium import webdriver
+import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -106,6 +107,7 @@ def get_article_text(url):
         if flag and '/news/' in flag and flag not in check_links:
             text_elements = article.find_all(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
             article_text = ' '.join([element.text.strip() for element in text_elements])
+            if pd.isnull(article_text) or article_text.strip() == '': continue          # to remove empty or null headings
             article_texts.append(article_text)
             check_links.append(flag)
             article_link = flag
